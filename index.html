@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4M Email Monitor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <b>4M Email Monitor — متابعة إيميلات الشركات</b>
+  <span id="statusTop" class="pill">لا يوجد حساب متصل</span>
+</header>
+<main>
+  <div class="stats">
+    <div class="card">عناوين المرسلين<div class="num" id="sCompanies">0</div></div>
+    <div class="card">رسائل اليوم<div class="num" id="sToday">0</div></div>
+    <div class="card">غير مراجعة<div class="num" id="sUnread">0</div></div>
+    <div class="card">حسابات Gmail المتصلة<div class="num small" id="sStatus">0 / 0</div></div>
+  </div>
+
+  <div class="card" id="clientCard">
+    <h3>إعداد Google (مرة واحدة)</h3>
+    <div class="row">
+      <input id="clientId" placeholder="xxxx.apps.googleusercontent.com  (Client ID وليس إيميل)" dir="ltr">
+      <button id="btnSaveClient">حفظ</button>
+    </div>
+    <p class="muted">البيانات تُحفظ في متصفحك فقط. المزامنة والصوت يعملان والصفحة مفتوحة (حتى لو في تبويب خلفي).</p>
+  </div>
+
+  <div class="card">
+    <h3>حسابات Gmail المراقَبة</h3>
+    <p class="row">
+      <input id="accEmail" type="email" dir="ltr" placeholder="اكتب إيميل الحساب (اختياري)">
+      <button id="btnConnect">+ ربط حساب Gmail</button>
+      <label><input type="checkbox" id="soundOn"> صوت التنبيه</label>
+      <button id="btnTestSound">تجربة الصوت</button>
+    </p>
+    <div class="scroll"><table>
+      <thead><tr><th>الحساب</th><th>الحالة</th><th>إجراء</th></tr></thead>
+      <tbody id="tAccounts"></tbody>
+    </table></div>
+    <p class="muted">اضغط مرة واحدة في أي مكان بالصفحة بعد فتحها لتفعيل الصوت. الجلسة تنتهي كل ساعة تقريبًا؛ إن ظهر "غير متصل" اضغط إعادة ربط.</p>
+  </div>
+
+  <div class="card">
+    <h3>إضافة مرسل إلى شركة</h3>
+    <form class="row" id="addForm">
+      <input id="cName" placeholder="اسم الشركة" required>
+      <input id="cEmail" type="email" placeholder="عنوان البريد الإلكتروني للمرسل" required>
+      <button>إضافة المرسل</button>
+    </form>
+    <p class="muted">المراقبة تشمل كل الحسابات المربوطة. يمكن إضافة عدة عناوين للشركة الواحدة.</p>
+  </div>
+
+  <div class="card">
+    <h3>الشركات وعناوين المرسلين</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>الشركة</th><th>عنوان المرسل</th><th>الحالة</th><th>إجراء</th></tr></thead>
+      <tbody id="tCompanies"></tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>آخر الرسائل</h3>
+    <p class="row">
+      <button id="btnExport">تصدير إلى Excel (CSV)</button>
+      <button id="btnSync">مزامنة الآن</button>
+    </p>
+    <div class="scroll"><table>
+      <thead><tr><th>الشركة</th><th>المرسل</th><th>الموضوع</th><th>وصلت على حساب</th><th>التاريخ</th><th>فتح</th></tr></thead>
+      <tbody id="tMessages"></tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>التقرير اليومي</h3>
+    <form class="row" id="reportForm">
+      <input type="email" id="reportEmail" placeholder="البريد الذي يستقبل التقرير اليومي">
+      <button>حفظ</button>
+    </form>
+    <p class="muted">يُرسل بعد الساعة 5 مساءً من أول حساب متصل، بشرط أن تكون الصفحة مفتوحة.</p>
+  </div>
+
+  <div class="card">
+    <h3>نسخ احتياطي</h3>
+    <p class="row">
+      <button id="btnBackup">تنزيل نسخة احتياطية</button>
+      <button id="btnRestore">استرجاع نسخة</button>
+      <input type="file" id="fileRestore" accept="application/json" hidden>
+    </p>
+  </div>
+</main>
+<footer><span>Developed by</span><a href="https://mazen-khaled.vercel.app/" target="_blank" rel="noopener">Eng. Mazen Khaled</a></footer>
+<div id="toasts"></div>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
